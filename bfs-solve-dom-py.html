@@ -1,0 +1,859 @@
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .col {
+        --border-width: 3px;
+        --cell-wh: calc(var(--border-width) * 4);
+        --cell-margin: calc(var(--border-width) * -1);
+        border: var(--border-width) solid black;
+        width: var(--cell-wh);
+        height: var(--cell-wh);
+        margin: var(--cell-margin) 0 0 var(--cell-margin);
+        /* background-color: cornflowerblue; */
+    }
+
+    #pythonStuff {
+        height: 100px;
+        margin-top: 15px;
+    }
+
+    /* py-config - not a component */
+    py-config {
+        display: none;
+    }
+
+    /* py-{el} - components not defined */
+    py-script:not(:defined) {
+        display: none;
+    }
+</style>
+
+<div id="biggrid">
+    <div class="row">
+        <div class="col" data-x="0" data-y="0" style="background-color: lime; border-bottom: none;"></div>
+        <div class="col" data-x="1" data-y="0" style="background-color: lime; border-right: none;"></div>
+        <div class="col" data-x="2" data-y="0"
+            style="background-color: lime; border-bottom: none; border-left: none; border-right: none;"></div>
+        <div class="col" data-x="3" data-y="0" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="4" data-y="0" style="background-color: lime; border-bottom: none; border-right: none;">
+        </div>
+        <div class="col" data-x="5" data-y="0" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="6" data-y="0" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="7" data-y="0" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="8" data-y="0" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="9" data-y="0" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="10" data-y="0" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="11" data-y="0" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="12" data-y="0" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="13" data-y="0"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="14" data-y="0" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="15" data-y="0"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="16" data-y="0" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="17" data-y="0" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="18" data-y="0" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="19" data-y="0" style="background-color: lime; border-bottom: none;"></div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="1" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="1" data-y="1" style="background-color: lime; border-bottom: none; border-right: none;">
+        </div>
+        <div class="col" data-x="2" data-y="1" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="3" data-y="1" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="4" data-y="1" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="5" data-y="1" style="background-color: lime; border-bottom: none;"></div>
+        <div class="col" data-x="6" data-y="1" style="background-color: lime; border-right: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="7" data-y="1"
+            style="background-color: lime; border-bottom: none; border-left: none; border-right: none;"></div>
+        <div class="col" data-x="8" data-y="1" style="background-color: lime; border-left: none;"></div>
+        <div class="col" data-x="9" data-y="1" style="background-color: lime; border-right: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="10" data-y="1"
+            style="background-color: lime; border-bottom: none; border-right: none; border-left: none;"></div>
+        <div class="col" data-x="11" data-y="1" style="background-color: lime; border-left: none;"></div>
+        <div class="col" data-x="12" data-y="1" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="13" data-y="1" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="14" data-y="1" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="15" data-y="1" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="16" data-y="1" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="17" data-y="1" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="18" data-y="1" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="19" data-y="1" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="2" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="1" data-y="2" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="2" data-y="2" style="background-color: lime; border-right: none;"></div>
+        <div class="col" data-x="3" data-y="2"
+            style="background-color: lime; border-bottom: none; border-left: none; border-right: none;"></div>
+        <div class="col" data-x="4" data-y="2" style="background-color: lime; border-left: none;"></div>
+        <div class="col" data-x="5" data-y="2"
+            style="background-color: lime; border-right: none; border-bottom: none; border-top: none;"></div>
+        <div class="col" data-x="6" data-y="2" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="7" data-y="2" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="8" data-y="2" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="9" data-y="2" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="10" data-y="2" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="11" data-y="2" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="12" data-y="2" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="13" data-y="2" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="14" data-y="2" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="15" data-y="2"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="16" data-y="2" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="17" data-y="2" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="18" data-y="2" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="19" data-y="2"
+            style="background-color: lime; border-left: none; border-bottom: none; border-top: none;"></div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="3" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="1" data-y="3" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="2" data-y="3" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="3" data-y="3" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="4" data-y="3" style="background-color: lime; border-right: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="5" data-y="3" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="6" data-y="3" style="background-color: lime; border-right: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="7" data-y="3" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="8" data-y="3"
+            style="background-color: lime; border-bottom: none; border-right: none; border-left: none;"></div>
+        <div class="col" data-x="9" data-y="3" style="background-color: lime; border-left: none;"></div>
+        <div class="col" data-x="10" data-y="3"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="11" data-y="3"
+            style="background-color: lime; border-bottom: none; border-right: none; border-left: none;"></div>
+        <div class="col" data-x="12" data-y="3" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="13" data-y="3" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="14" data-y="3"
+            style="background-color: lime; border-left: none; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="15" data-y="3" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="16" data-y="3"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="17" data-y="3" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="18" data-y="3"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="19" data-y="3" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="4" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="1" data-y="4" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="2" data-y="4" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="3" data-y="4"
+            style="background-color: lime; border-right: none; border-bottom: none; border-top: none;"></div>
+        <div class="col" data-x="4" data-y="4" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="5" data-y="4" style="background-color: lime; border-right: none;"></div>
+        <div class="col" data-x="6" data-y="4"
+            style="background-color: lime; border-top: none; border-left: none; border-right: none;"></div>
+        <div class="col" data-x="7" data-y="4" style="background-color: lime; border-left: none;"></div>
+        <div class="col" data-x="8" data-y="4" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="9" data-y="4" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="10" data-y="4" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="11" data-y="4" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="12" data-y="4" style="background-color: lime; border-right: none;"></div>
+        <div class="col" data-x="13" data-y="4" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="14" data-y="4" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="15" data-y="4"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="16" data-y="4" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="17" data-y="4" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="18" data-y="4" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="19" data-y="4" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="5" style="background-color: lime; border-bottom: none;"></div>
+        <div class="col" data-x="1" data-y="5" style="background-color: lime; border-right: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="2" data-y="5" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="3" data-y="5" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="4" data-y="5" style="background-color: lime; border-bottom: none; border-right: none;">
+        </div>
+        <div class="col" data-x="5" data-y="5" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="6" data-y="5" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="7" data-y="5" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="8" data-y="5" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="9" data-y="5" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="10" data-y="5" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="11" data-y="5" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="12" data-y="5" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="13" data-y="5" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="14" data-y="5" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="15" data-y="5" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="16" data-y="5"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="17" data-y="5" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="18" data-y="5" style="background-color: lime; border-bottom: none;"></div>
+        <div class="col" data-x="19" data-y="5" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="6" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="1" data-y="6" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="2" data-y="6" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="3" data-y="6" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="4" data-y="6" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="5" data-y="6"
+            style="background-color: lime; border-right: none; border-left: none; border-bottom: none;"></div>
+        <div class="col" data-x="6" data-y="6" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="7" data-y="6" style="background-color: lime; border-right: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="8" data-y="6" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="9" data-y="6" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="10" data-y="6"
+            style="background-color: lime; border-top: none; border-bottom: none; border-left: none;"></div>
+        <div class="col" data-x="11" data-y="6"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="12" data-y="6" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="13" data-y="6"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="14" data-y="6" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="15" data-y="6" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="16" data-y="6" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="17" data-y="6" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="18" data-y="6"
+            style="background-color: lime; border-right: none; border-top: none; border-bottom: none;"></div>
+        <div class="col" data-x="19" data-y="6" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="7" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="1" data-y="7" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="2" data-y="7" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="3" data-y="7" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="4" data-y="7" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="5" data-y="7" style="background-color: lime; border-top: none;"></div>
+        <div class="col" data-x="6" data-y="7" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="7" data-y="7" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="8" data-y="7" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="9" data-y="7" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="10" data-y="7" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="11" data-y="7" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="12" data-y="7" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="13" data-y="7" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="14" data-y="7" style="background-color: lime; border-right: none;"></div>
+        <div class="col" data-x="15" data-y="7" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="16" data-y="7"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="17" data-y="7" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="18" data-y="7" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="19" data-y="7" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="8"
+            style="background-color: lime; border-bottom: none; border-top: none; border-right: none;"></div>
+        <div class="col" data-x="1" data-y="8" style="background-color: lime; border-left: none;"></div>
+        <div class="col" data-x="2" data-y="8" style="background-color: lime; border-right: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="3" data-y="8" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="4" data-y="8" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="5" data-y="8" style="background-color: lime; border-bottom: none; border-right: none;">
+        </div>
+        <div class="col" data-x="6" data-y="8" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="7" data-y="8" style="background-color: lime; border-bottom: none; border-right: none;">
+        </div>
+        <div class="col" data-x="8" data-y="8" style="background-color: lime; border-left: none;"></div>
+        <div class="col" data-x="9" data-y="8" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="10" data-y="8" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="11" data-y="8" style="background-color: lime; border-bottom: none;"></div>
+        <div class="col" data-x="12" data-y="8" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="13" data-y="8" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="14" data-y="8"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="15" data-y="8" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="16" data-y="8" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="17" data-y="8"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="18" data-y="8" style="background-color: lime; border-left: none;"></div>
+        <div class="col" data-x="19" data-y="8" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="9" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="1" data-y="9" style="background-color: lime; border-right: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="2" data-y="9" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="3" data-y="9" style="background-color: lime; border-bottom: none; border-right: none;">
+        </div>
+        <div class="col" data-x="4" data-y="9" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="5" data-y="9" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="6" data-y="9" style="background-color: lime; border-right: none;"></div>
+        <div class="col" data-x="7" data-y="9"
+            style="background-color: lime; border-right: none; border-left: none; border-top: none;"></div>
+        <div class="col" data-x="8" data-y="9" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="9" data-y="9" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="10" data-y="9" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="11" data-y="9"
+            style="background-color: lime; border-left: none; border-right: none; border-top: none;"></div>
+        <div class="col" data-x="12" data-y="9" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="13" data-y="9" style="background-color: lime; border-right: none;"></div>
+        <div class="col" data-x="14" data-y="9"
+            style="background-color: lime; border-right: none; border-top: none; border-left: none;"></div>
+        <div class="col" data-x="15" data-y="9" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="16" data-y="9" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="17" data-y="9" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="18" data-y="9" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="19" data-y="9"
+            style="background-color: lime; border-top: none; border-bottom: none; border-left: none;"></div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="10"
+            style="background-color: lime; border-right: none; border-bottom: none; border-top: none;"></div>
+        <div class="col" data-x="1" data-y="10" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="2" data-y="10"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="3" data-y="10" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="4" data-y="10"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="5" data-y="10" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="6" data-y="10"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="7" data-y="10" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="8" data-y="10" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="9" data-y="10" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="10" data-y="10"
+            style="background-color: lime; border-left: none; border-bottom: none;"></div>
+        <div class="col" data-x="11" data-y="10" style="background-color: lime; border-bottom: none;"></div>
+        <div class="col" data-x="12" data-y="10" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="13" data-y="10"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="14" data-y="10"
+            style="background-color: lime; border-left: none; border-bottom: none;"></div>
+        <div class="col" data-x="15" data-y="10" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="16" data-y="10" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="17" data-y="10" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="18" data-y="10"
+            style="background-color: lime; border-bottom: none; border-left: none;"></div>
+        <div class="col" data-x="19" data-y="10" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="11" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="1" data-y="11" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="2" data-y="11" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="3" data-y="11" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="4" data-y="11" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="5" data-y="11" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="6" data-y="11" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="7" data-y="11" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="8" data-y="11"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="9" data-y="11" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="10" data-y="11" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="11" data-y="11"
+            style="background-color: lime; border-right: none; border-top: none; border-bottom: none;"></div>
+        <div class="col" data-x="12" data-y="11" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="13" data-y="11" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="14" data-y="11" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="15" data-y="11"
+            style="background-color: lime; border-bottom: none; border-right: none; border-top: none;"></div>
+        <div class="col" data-x="16" data-y="11"
+            style="background-color: lime; border-left: none; border-bottom: none;"></div>
+        <div class="col" data-x="17" data-y="11"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="18" data-y="11" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="19" data-y="11" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="12" style="background-color: lime; border-bottom: none;"></div>
+        <div class="col" data-x="1" data-y="12" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="2" data-y="12" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="3" data-y="12" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="4" data-y="12" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="5" data-y="12" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="6" data-y="12"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="7" data-y="12" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="8" data-y="12" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="9" data-y="12" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="10" data-y="12" style="background-color: lime; border-bottom: none;"></div>
+        <div class="col" data-x="11" data-y="12" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="12" data-y="12" style="background-color: lime; border-right: none;"></div>
+        <div class="col" data-x="13" data-y="12"
+            style="background-color: lime; border-bottom: none; border-top: none; border-left: none;"></div>
+        <div class="col" data-x="14" data-y="12"
+            style="background-color: lime; border-top: none; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="15" data-y="12" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="16" data-y="12" style="background-color: lime; border-top: none;"></div>
+        <div class="col" data-x="17" data-y="12" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="18" data-y="12"
+            style="background-color: lime; border-bottom: none; border-left: none;"></div>
+        <div class="col" data-x="19" data-y="12" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="13" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="1" data-y="13"
+            style="background-color: lime; border-bottom: none; border-left: none; border-right: none;"></div>
+        <div class="col" data-x="2" data-y="13" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="3" data-y="13"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="4" data-y="13" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="5" data-y="13" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="6" data-y="13"
+            style="background-color: lime; border-right: none; border-left: none; border-top: none;"></div>
+        <div class="col" data-x="7" data-y="13"
+            style="background-color: lime; border-bottom: none; border-left: none; border-right: none;"></div>
+        <div class="col" data-x="8" data-y="13" style="background-color: lime; border-left: none;"></div>
+        <div class="col" data-x="9" data-y="13" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="10" data-y="13" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="11" data-y="13"
+            style="background-color: lime; border-top: none; border-right: none; border-left: none;"></div>
+        <div class="col" data-x="12" data-y="13" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="13" data-y="13" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="14" data-y="13" style="background-color: lime; border-top: none;"></div>
+        <div class="col" data-x="15" data-y="13"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="16" data-y="13"
+            style="background-color: lime; border-left: none; border-bottom: none;"></div>
+        <div class="col" data-x="17" data-y="13"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="18" data-y="13" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="19" data-y="13" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="14"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="1" data-y="14" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="2" data-y="14" style="background-color: lime; border-top: none;"></div>
+        <div class="col" data-x="3" data-y="14" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="4" data-y="14" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="5" data-y="14"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="6" data-y="14" style="background-color: lime; border-left: none;"></div>
+        <div class="col" data-x="7" data-y="14" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="8" data-y="14" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="9" data-y="14" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="10" data-y="14" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="11" data-y="14" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="12" data-y="14"
+            style="background-color: lime; border-left: none; border-bottom: none;"></div>
+        <div class="col" data-x="13" data-y="14"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="14" data-y="14" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="15" data-y="14" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="16" data-y="14" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="17" data-y="14" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="18" data-y="14"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="19" data-y="14" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="15" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="1" data-y="15" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="2" data-y="15"
+            style="background-color: lime; border-bottom: none; border-left: none; border-right: none;"></div>
+        <div class="col" data-x="3" data-y="15" style="background-color: lime; border-left: none;"></div>
+        <div class="col" data-x="4" data-y="15" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="5" data-y="15"
+            style="background-color: lime; border-right: none; border-top: none; border-bottom: none;"></div>
+        <div class="col" data-x="6" data-y="15"
+            style="background-color: lime; border-bottom: none; border-left: none; border-right: none;"></div>
+        <div class="col" data-x="7" data-y="15" style="background-color: lime; border-left: none;"></div>
+        <div class="col" data-x="8" data-y="15" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="9" data-y="15" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="10" data-y="15" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="11" data-y="15" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="12" data-y="15" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="13" data-y="15" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="14" data-y="15"
+            style="background-color: lime; border-bottom: none; border-left: none;"></div>
+        <div class="col" data-x="15" data-y="15" style="background-color: lime; border-bottom: none;"></div>
+        <div class="col" data-x="16" data-y="15" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="17" data-y="15" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="18" data-y="15" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="19" data-y="15"
+            style="background-color: lime; border-left: none; border-bottom: none;"></div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="16"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="1" data-y="16" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="2" data-y="16" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="3" data-y="16"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="4" data-y="16" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="5" data-y="16" style="background-color: lime; border-top: none;"></div>
+        <div class="col" data-x="6" data-y="16" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="7" data-y="16"
+            style="background-color: lime; border-bottom: none; border-right: none; border-left: none;"></div>
+        <div class="col" data-x="8" data-y="16" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="9" data-y="16" style="background-color: lime; border-left: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="10" data-y="16"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="11" data-y="16" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="12" data-y="16" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="13" data-y="16"
+            style="background-color: lime; border-bottom: none; border-right: none; border-left: none;"></div>
+        <div class="col" data-x="14" data-y="16" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="15" data-y="16"
+            style="background-color: lime; border-right: none; border-top: none; border-bottom: none;"></div>
+        <div class="col" data-x="16" data-y="16" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="17" data-y="16" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="18" data-y="16"
+            style="background-color: lime; border-bottom: none; border-left: none;"></div>
+        <div class="col" data-x="19" data-y="16" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="17" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="1" data-y="17" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="2" data-y="17"
+            style="background-color: lime; border-left: none; border-bottom: none; border-top: none;"></div>
+        <div class="col" data-x="3" data-y="17" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="4" data-y="17"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="5" data-y="17"
+            style="background-color: lime; border-bottom: none; border-right: none; border-left: none;"></div>
+        <div class="col" data-x="6" data-y="17" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="7" data-y="17" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="8" data-y="17"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="9" data-y="17" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="10" data-y="17" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="11" data-y="17" style="background-color: lime; border-left: none;"></div>
+        <div class="col" data-x="12" data-y="17"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="13" data-y="17" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="14" data-y="17"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="15" data-y="17" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="16" data-y="17"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="17" data-y="17" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="18" data-y="17" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="19" data-y="17" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="18" style="background-color: lime; border-bottom: none; border-top: none;">
+        </div>
+        <div class="col" data-x="1" data-y="18" style="background-color: lime; border-right: none;"></div>
+        <div class="col" data-x="2" data-y="18" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="3" data-y="18" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="4" data-y="18" style="background-color: lime; border-top: none;"></div>
+        <div class="col" data-x="5" data-y="18" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="6" data-y="18" style="background-color: lime; border-bottom: none; border-left: none;">
+        </div>
+        <div class="col" data-x="7" data-y="18"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="8" data-y="18" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+        <div class="col" data-x="9" data-y="18"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="10" data-y="18"
+            style="background-color: lime; border-left: none; border-bottom: none;"></div>
+        <div class="col" data-x="11" data-y="18"
+            style="background-color: lime; border-bottom: none; border-right: none;"></div>
+        <div class="col" data-x="12" data-y="18" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="13" data-y="18" style="background-color: lime; border-bottom: none;"></div>
+        <div class="col" data-x="14" data-y="18" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+        <div class="col" data-x="15" data-y="18" style="background-color: lime; border-right: none;"></div>
+        <div class="col" data-x="16" data-y="18"
+            style="background-color: lime; border-bottom: none; border-left: none; border-top: none;"></div>
+        <div class="col" data-x="17" data-y="18"
+            style="background-color: lime; border-right: none; border-bottom: none;"></div>
+        <div class="col" data-x="18" data-y="18"
+            style="background-color: lime; border-bottom: none; border-left: none;"></div>
+        <div class="col" data-x="19" data-y="18" style="background-color: lime; border-top: none; border-bottom: none;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-x="0" data-y="19" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="1" data-y="19" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="2" data-y="19" style="background-color: lime; border-right: none; border-left: none;">
+        </div>
+        <div class="col" data-x="3" data-y="19"
+            style="background-color: lime; border-top: none; border-left: none; border-right: none;"></div>
+        <div class="col" data-x="4" data-y="19" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="5" data-y="19" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="6" data-y="19" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="7" data-y="19" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="8" data-y="19" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="9" data-y="19" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="10" data-y="19" style="background-color: lime; border-top: none; border-right: none;">
+        </div>
+        <div class="col" data-x="11" data-y="19" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="12" data-y="19" style="background-color: lime; border-right: none;"></div>
+        <div class="col" data-x="13" data-y="19"
+            style="background-color: lime; border-right: none; border-top: none; border-left: none;"></div>
+        <div class="col" data-x="14" data-y="19"
+            style="background-color: lime; border-top: none; border-left: none; border-right: none;"></div>
+        <div class="col" data-x="15" data-y="19" style="background-color: lime; border-left: none; border-right: none;">
+        </div>
+        <div class="col" data-x="16" data-y="19" style="background-color: lime; border-left: none; border-top: none;">
+        </div>
+        <div class="col" data-x="17" data-y="19" style="background-color: lime; border-top: none;"></div>
+        <div class="col" data-x="18" data-y="19" style="background-color: lime; border-right: none; border-top: none;">
+        </div>
+        <div class="col" data-x="19" data-y="19" style="background-color: lime; border-top: none; border-left: none;">
+        </div>
+    </div>
+</div>
+
+<div id="pythonStuff">
+    <div id="pythonOutput"></div>
+    <py-config>
+        [[fetch]]
+        files = ["./bfs-solve-dom.py"]
+    </py-config>
+    <py-script>
+        import importlib
+        importlib.import_module("bfs-solve-dom")
+    </py-script>
+    <py-splashscreen></py-splashscreen>
+    <py-terminal></py-terminal>
+</div>
+<script src="https://pyscript.net/latest/pyscript.js"></script>
